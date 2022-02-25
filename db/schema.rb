@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_02_25_094812) do
+ActiveRecord::Schema[7.0].define(version: 2022_02_25_094906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "account_settings", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "setting_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_settings_on_account_id"
+    t.index ["setting_id"], name: "index_account_settings_on_setting_id"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -24,4 +33,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_02_25_094812) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "account_settings", "accounts"
+  add_foreign_key "account_settings", "settings"
 end
