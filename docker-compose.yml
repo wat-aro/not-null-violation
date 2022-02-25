@@ -8,5 +8,17 @@ services:
     volumes:
       - .:/usr/src/app
       - bundle_cache:/usr/local/bundle
+    depends_on:
+      - postgres
+    ports:
+      - '3000:3000'
+  postgres:
+    image: postgres:14.2
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
 volumes:
   bundle_cache:
+  postgres_data:
